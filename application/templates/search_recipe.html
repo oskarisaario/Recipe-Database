@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="col-md-4 col-md-offset-4">
+        <form action="" method="POST">
+            {{ form.csrf_token() }}
+        <h4>Search recipe</h4>
+        <div>
+            {{ form.search(class="form-control mt-2") }}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info mt-2") }} {{ form.options(class="btn btn-outline-info mt-2") }}
+        </div>
+        </form>
+    </div>
+{% endblock %}

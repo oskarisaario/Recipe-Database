@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div>
+        <form action="" method="POST">
+            {{ form.csrf_token() }}
+            <fieldset class="form-group col-md-6">
+                <legend>Add recipe</legend>
+
+                <div class="form-group">
+                    {{ form.name.label(class="form-control-label") }}
+                    {% if form.name.errors %}
+                        {{ form.name(class="form-control is-invalid") }}
+                        {% for error in form.name.errors %}
+                            <div class="invalid-feedback">
+                                <span>{{ error }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.name(class="form-control") }}       
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.ingredients.label(class="form-control-label") }}
+                    {% if form.ingredients.errors %}
+                        {{ form.ingredients(class="form-control is-invalid") }}
+                        {% for error in form.ingredients.errors %}
+                            <div class="invalid-feedback">
+                                <span>{{ error }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.hidden_tag() }}
+                        <p>
+                        {{ form.add_ingredient(class="btn btn-outline-info mt-2") }}
+                        </p>
+                        {% for ingredient in form.ingredients %}
+                            <p>
+                            {{ ingredient() }}
+                            </p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <div class="form-group" style="width: 10%">
+                    {{ form.time.label(class="form-control-label") }}
+                    {% if form.time.errors %}
+                        {{ form.time(class="form-control is-invalid") }}
+                        {% for error in recipe_form.instructions.errors %}
+                            <div class="invalid-feedback">
+                                <span>{{ error }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.time(class="form-control") }} min
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.instructions.label(class="form-control-label") }}
+                    {% if form.instructions.errors %}
+                        {{ form.instructions(class="form-control is-invalid") }}
+                        {% for error in recipe_form.instructions.errors %}
+                            <div class="invalid-feedback">
+                                <span>{{ error }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.instructions(class="form-control") }}       
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-outline-info mt-2") }}
+                </div>
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}

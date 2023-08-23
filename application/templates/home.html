@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for recipe in recipes %}
+      <p>
+        <div class="card p-1 m-2 col-md-6">
+          <div class="card-body">
+        <p class="card-text text-muted">{{ recipe.date_created }}</p>
+        <h3 class="card-text">{{ recipe.name }} </h3>
+        <button class="btn btn-outline-info mt-2
+        " type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ recipe.name }}" aria-expanded="false" aria-controls="collapse-{{ recipe.name }}">
+            ingredients
+        </button>
+      </p>
+          <div class="collapse" id="collapse-{{ recipe.name }}">
+            {% for dict_item in recipe.ingredients %}
+              <div class="card card-body">
+                <dl>{{dict_item["ingredient"]}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{dict_item["amount"]}} {{dict_item["unit"]}}</dl>
+              </div>
+            {% endfor%}
+            <p>Time: {{ recipe.time }} min</p>
+            <h4>instructions</h4>
+            <p class="card-text">{{ recipe.instructions }}</p>
+          </div>
+          </div>
+        </div>
+    {% endfor %}
+{% endblock %}

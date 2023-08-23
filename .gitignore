@@ -1,0 +1,5 @@
+#Secret usernames/passwords in config file to stay safe.
+config.py
+env/
+__pycache__/
+application/__pycache__/
