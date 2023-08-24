@@ -1,11 +1,11 @@
-from application import app
-from flask import render_template, flash, request, url_for, redirect, session
-from application import db
-from .forms import RecipeForm, SearchForm, IngredientsForm
 from datetime import datetime
-from bson import ObjectId
-from wtforms.fields import Label
+
 import bcrypt
+from bson import ObjectId
+from flask import render_template, flash, request, url_for, redirect, session
+
+from application import app, db
+from .forms import RecipeForm, SearchForm, IngredientsForm
 
 
 
@@ -155,9 +155,13 @@ def search_recipe():
 
 @app.route("/delete_recipe/<id>")
 def delete_recipe(id):
-    db.recipes.find_one_and_delete({"_id": ObjectId(id)})
-    flash("Recipe deleted", "info")
-    return redirect("/")
+    try:
+        db.recipes.find_one_and_delete({"_id": ObjectId(id)})
+        flash("Recipe deleted", "info")
+        return redirect("/")
+    except ValueError:
+        flash("Something went wrong, recipe not deleted!", "danger")
+        return redirect(url_for("view_recipes"))
 
 
 @app.route("/update_recipe/<id>", methods = ["POST", "GET"])
